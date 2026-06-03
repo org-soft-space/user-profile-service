@@ -33,18 +33,27 @@ public class UserProfileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false, unique = true)
     @EqualsAndHashCode.Include
     private UUID guid;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     private String surname;
+
     @Column(name = "middle_name")
     private String middleName;
+
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
+
+    @Column(nullable = false)
     private String email;
+
+    @Column
     private String phone;
 
     @Enumerated(EnumType.STRING)
@@ -53,6 +62,10 @@ public class UserProfileEntity {
 
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
+
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
+
+    @Column(name = "deleted_at")
+    private Instant deletedAt;
 }

@@ -1,4 +1,4 @@
-package org.softspace.userprofile.dto;
+package org.softspace.userprofile.dto.status;
 
 public record StatusResponse(
         String name,

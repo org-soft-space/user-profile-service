@@ -10,7 +10,7 @@ COPY gradlew .
 COPY gradle gradle
 COPY build.gradle settings.gradle ./
 
-RUN ./gradlew dependencies --no-daemon || true
+RUN chmod +x ./gradlew dependencies --no-daemon || true
 
 # Исходники
 COPY src src

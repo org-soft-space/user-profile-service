@@ -1,6 +1,6 @@
 package org.softspace.userprofile.controller;
 
-import org.softspace.userprofile.dto.StatusResponse;
+import org.softspace.userprofile.dto.status.StatusResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
