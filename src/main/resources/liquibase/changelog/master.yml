@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - include:
+      file: changes/001-create-user-profile-table.yml
+      relativeToChangelogFile: true
+
+  - include:
+      file: changes/002-insert-user-profile-data.yml
+      relativeToChangelogFile: true

@@ -12,7 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class StatusControllerTest {
+class StatusControllerTest {
 
     @Autowired
     private TestRestTemplate testTemplate;
