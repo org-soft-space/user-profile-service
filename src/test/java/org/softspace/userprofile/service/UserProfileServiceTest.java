@@ -2,6 +2,7 @@ package org.softspace.userprofile.service;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -65,6 +66,7 @@ class UserProfileServiceTest {
         userProfileEntity.setPhone(DtoTestBuilder.PHONE);
     }
 
+    @DisplayName("Create user profile. Positive.")
     @Test
     void createNewUserProfileSuccessfullyTest() {
 
@@ -103,6 +105,7 @@ class UserProfileServiceTest {
         verify(userProfileMapper).userProfileEntityToUserProfileResponse(userProfileEntity);
     }
 
+    @DisplayName("Create user profile. Email already exists. Negative.")
     @Test
     void emailAlreadyExistsExceptionTest() {
         // Set up
@@ -125,6 +128,7 @@ class UserProfileServiceTest {
         verify(userProfileRepository, never()).save(any());
     }
 
+    @DisplayName("Create user profile. Integrity violation exception. Positive.")
     @Test
     void dataIntegrityViolationExceptionTest() {
         // Set up
@@ -149,6 +153,7 @@ class UserProfileServiceTest {
     }
 
     // успешный PATCH
+    @DisplayName("Update user profile. Positive.")
     @Test
     void updateUserProfileSuccessfullyTest() {
         // Given
@@ -181,6 +186,7 @@ class UserProfileServiceTest {
     }
 
     // успешный PATCH
+    @DisplayName("Update user profile. Update name. Positive.")
     @Test
     void updateNameSuccessfullyTest() {
         // Given
@@ -205,6 +211,7 @@ class UserProfileServiceTest {
     }
 
     // успешный PATCH
+    @DisplayName("Update user profile. Update surname. Positive.")
     @Test
     void updateSurnameSuccessfullyTest() {
         // Given
@@ -229,6 +236,7 @@ class UserProfileServiceTest {
     }
 
     // успешный PATCH
+    @DisplayName("Update user profile. Update middleName. Positive.")
     @Test
     void updateMiddleNameSuccessfullyTest() {
         // Given
@@ -253,6 +261,7 @@ class UserProfileServiceTest {
     }
 
     // успешный PATCH
+    @DisplayName("Update user profile. Update dateOfBirth. Positive.")
     @Test
     void updateDateOfBirthSuccessfullyTest() {
         // Given
@@ -277,6 +286,7 @@ class UserProfileServiceTest {
     }
 
     // успешный PATCH
+    @DisplayName("Update user profile. Update phone. Positive.")
     @Test
     void updatePhoneSuccessfullyTest() {
         // Given
@@ -301,6 +311,7 @@ class UserProfileServiceTest {
     }
 
     // успешный PATCH
+    @DisplayName("Update user profile. Update profile status. Positive.")
     @Test
     void updateProfileStatusSuccessfullyTest() {
         // Given
@@ -325,6 +336,7 @@ class UserProfileServiceTest {
     }
 
     // PATCH с null для nullable-поля
+    @DisplayName("Update user profile. Update nullable fields. Positive.")
     @Test
     void nullableUpdateUserProfileSuccessfullyTest() {
         userProfileEntity.setMiddleName(DtoTestBuilder.MIDDLE_NAME);
@@ -373,6 +385,7 @@ class UserProfileServiceTest {
         verify(userProfileMapper).userProfileEntityToUserProfileResponse(userProfileEntity);
     }
 
+    @DisplayName("Update user profile. Not found exception. Negative.")
     @Test
     void updateUserProfileNotFoundExceptionTest() {
         // Given
@@ -392,6 +405,7 @@ class UserProfileServiceTest {
         verify(userProfileMapper, never()).userProfileEntityToUserProfileResponse(any());
     }
 
+    @DisplayName("Find user profile. Positive.")
     @Test
     void getUserProfileSuccessfullyTest() {
 
@@ -415,6 +429,7 @@ class UserProfileServiceTest {
         verify(userProfileMapper).userProfileEntityToUserProfileResponse(any());
     }
 
+    @DisplayName("Find user profile. Not found exception. Negative.")
     @Test
     void getUserProfileNotFoundExceptionTest() {
 
@@ -431,6 +446,7 @@ class UserProfileServiceTest {
         verify(userProfileMapper, never()).userProfileEntityToUserProfileResponse(any());
     }
 
+    @DisplayName("Find all user profile. Positive.")
     @Test
     void getAllUserProfileSuccessfullyTest() {
 
@@ -456,6 +472,7 @@ class UserProfileServiceTest {
         verify(userProfileMapper).userProfileEntityListToAllUserProfilesResponse(userList);
     }
 
+    @DisplayName("Delete user profile. Positive.")
     @Test
     void deleteUserProfileSuccessfullyTest() {
 
@@ -481,6 +498,7 @@ class UserProfileServiceTest {
         verify(userProfileRepository).findByGuidAndDeletedAtIsNull(USER_GUID);
     }
 
+    @DisplayName("Delete user profile. Not found exception. Positive.")
     @Test
     void deleteUserProfileNotFoundExceptionTest() {
         // When

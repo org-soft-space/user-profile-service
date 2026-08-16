@@ -2,6 +2,7 @@ package org.softspace.userprofile.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micrometer.tracing.Tracer;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openapitools.jackson.nullable.JsonNullable;
 import org.softspace.userprofile.DtoTestBuilder;
@@ -53,6 +54,7 @@ class UserProfileControllerTest {
     private Tracer tracer;
 
 
+    @DisplayName("Create user profile. Positive.")
     @Test
     void shouldCreateUserProfile() throws Exception {
 
@@ -72,6 +74,7 @@ class UserProfileControllerTest {
         verify(userProfileService).createUserProfile(any(CreateUserProfileRequest.class));
     }
 
+    @DisplayName("Find user profile. Positive.")
     @Test
     void shouldGetUserProfile() throws Exception {
 
@@ -88,6 +91,7 @@ class UserProfileControllerTest {
         verify(userProfileService).getUserProfile(DtoTestBuilder.USER_GUID);
     }
 
+    @DisplayName("Find all user profile. Positive.")
     @Test
     void shouldGetAllUserProfile() throws Exception {
 
@@ -107,6 +111,7 @@ class UserProfileControllerTest {
         verify(userProfileService).getAllUserProfile();
     }
 
+    @DisplayName("Update user profile. Positive.")
     @Test
     void shouldUpdateUserProfile() throws Exception {
 
@@ -126,6 +131,7 @@ class UserProfileControllerTest {
         verify(userProfileService).updateUserProfile(DtoTestBuilder.getUpdateUserProfileRequest(), DtoTestBuilder.USER_GUID);
     }
 
+    @DisplayName("Update user profile with nullable fields. Positive.")
     @Test
     void shouldUpdateUserProfileWithNullInNullableDtoFields() throws Exception {
         UpdateUserProfileRequest request = new UpdateUserProfileRequest(
@@ -153,6 +159,7 @@ class UserProfileControllerTest {
         verify(userProfileService).updateUserProfile(request, DtoTestBuilder.USER_GUID);
     }
 
+    @DisplayName("Delete user profile. Positive.")
     @Test
     void shouldDeleteUserProfile() throws Exception {
 

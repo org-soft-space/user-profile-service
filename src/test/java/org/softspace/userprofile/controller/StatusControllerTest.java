@@ -1,8 +1,8 @@
-package org.softspace.userprofile.controller.integration;
+package org.softspace.userprofile.controller;
 
 import io.micrometer.tracing.Tracer;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.softspace.userprofile.controller.StatusController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
@@ -27,6 +27,7 @@ class StatusControllerTest {
     private Tracer tracer;
 
 
+    @DisplayName("Get status.")
     @Test
     void getStatusTest() throws Exception {
         mockMvc.perform(get("/api/v1/status"))

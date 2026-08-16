@@ -1,6 +1,7 @@
 package org.softspace.userprofile.service.validator;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -20,6 +21,7 @@ class ValidatorTest {
 
     private final UserProfileValidator userProfileValidator = new UserProfileValidator();
 
+    @DisplayName("Update user profile. Nullable fields. Positive.")
     @Test
     void nullableUpdateUserProfileSuccessfullyTest() {
 
@@ -38,6 +40,7 @@ class ValidatorTest {
         );
     }
 
+    @DisplayName("Update user profile. Nullable fields validation exception. Negative.")
     @ParameterizedTest(name = "name={0}, surname={1}, dateOfBirth={2}, profileStatus={3}")
     @MethodSource("userProfileVariants")
     void notNullableFieldsUpdateUserProfileNegativeTest(

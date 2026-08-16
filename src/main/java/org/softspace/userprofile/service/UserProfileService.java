@@ -56,8 +56,8 @@ public class UserProfileService {
                 profileStatusDefault,
                 now
         );
-        // TODO: тест для DataIntegrityViolationException.  Метод save выкинул исключение.
-        //  и проверить что пришел EmailAlreadyExistsException.
+        // TODO: тест для DataIntegrityViolationException.  Метод save выкинул исключение.  ==== DONE ====
+        //  и проверить что пришел EmailAlreadyExistsException.         Проверка реализована в unit тестах - dataIntegrityViolationExceptionTest
         // Create user profile
         try {
             UserProfileEntity createdUserProfile = userProfileRepository.save(userProfileEntity);

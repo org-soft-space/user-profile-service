@@ -1,0 +1,2 @@
+DELETE FROM user_profile
+WHERE guid = 'c479a77f-0386-4a0f-9245-0927d25b0e77';

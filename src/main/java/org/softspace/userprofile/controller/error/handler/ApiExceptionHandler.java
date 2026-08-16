@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.Instant;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,8 +34,6 @@ public class ApiExceptionHandler {
     private static final String FIELD_NAME = "fieldName";
 
     private final Tracer tracer;
-
-    // TODO: Нужно ли в поле path передовать Http-request вместе с query-параметрами.   === DONE ===
 
     @ExceptionHandler(UserProfileNotFoundException.class)
     public ResponseEntity<ErrorResponse> userProfileNotFoundExceptionHandle(UserProfileNotFoundException ex, HttpServletRequest request) {
@@ -72,7 +71,7 @@ public class ApiExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> notReadableExceptionHandle(HttpMessageNotReadableException ex, HttpServletRequest request) {
         Throwable cause = ex.getMostSpecificCause();
-        switch(cause) {
+        switch (cause) {
             case InvalidFormatException exception -> {
                 String message = StringUtils.isNotBlank(exception.getMessage()) ? exception.getMessage() : "invalid format of field.";
                 log.warn(message, ex);
@@ -82,6 +81,34 @@ public class ApiExceptionHandler {
                         message,
                         Map.of(FIELD_NAME, exception.getPath().getFirst().getFieldName(),
                                 "value", exception.getValue()),
+                        request.getRequestURI(),
+                        now,
+                        getCurrentTraceId()
+                );
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+            }
+
+            case DateTimeParseException exception -> {
+                String message = StringUtils.isNotBlank(exception.getMessage()) ? exception.getMessage() : "invalid format of field.";
+                log.warn(message, ex);
+                Instant now = Instant.now();
+                Throwable current = ex.getCause();
+                String fieldName = null;
+                while (current != null) {
+
+                    if (current instanceof InvalidFormatException invalidFormatException) {
+                        if (invalidFormatException.getPath() != null) {
+                            fieldName = invalidFormatException.getPath().getFirst().getFieldName();
+                        }
+                        break;
+                    }
+                    current = current.getCause();
+                }
+
+                ErrorResponse errorResponse = new ErrorResponse(
+                        ErrorCode.FIELD_INVALID.name(),
+                        message,
+                        fieldName != null ? Map.of(FIELD_NAME, fieldName) : Map.of(),
                         request.getRequestURI(),
                         now,
                         getCurrentTraceId()
