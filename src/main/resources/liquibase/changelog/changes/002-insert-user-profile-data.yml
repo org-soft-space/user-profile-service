@@ -1,0 +1,140 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-insert-user-profile-data
+      author: user-profile-service
+      changes:
+        - insert:
+            tableName: user_profile
+            columns:
+              - column:
+                  name: guid
+                  value: "c479a77f-0386-4a0f-9245-0927d25b0e77"
+              - column:
+                  name: name
+                  value: "Arkadiy"
+              - column:
+                  name: surname
+                  value: "Ivanov"
+              - column:
+                  name: middle_name
+                  value: "Sergeevich"
+              - column:
+                  name: date_of_birth
+                  value: "1995-05-20"
+              - column:
+                  name: email
+                  value: "admin@softspace.org"
+              - column:
+                  name: phone
+                  value: ""
+              - column:
+                  name: profile_status
+                  value: "ACTIVE"
+              - column:
+                  name: updated_at
+                  value: "2026-06-22 17:48:34+03:00"
+              - column:
+                  name: created_at
+                  value: "2026-06-22 17:48:34+03:00"
+
+        - insert:
+            tableName: user_profile
+            columns:
+              - column:
+                  name: guid
+                  value: "d139d0b6-de8e-4e40-845d-87f30d1fb263"
+              - column:
+                  name: name
+                  value: "Semyon"
+              - column:
+                  name: surname
+                  value: "Petrov"
+              - column:
+                  name: middle_name
+                  value: "Sergeevich"
+              - column:
+                  name: date_of_birth
+                  value: "1995-05-20"
+              - column:
+                  name: email
+                  value: "manager@softspace.org"
+              - column:
+                  name: phone
+                  value: ""
+              - column:
+                  name: profile_status
+                  value: "ACTIVE"
+              - column:
+                  name: updated_at
+                  value: "2026-06-22 17:48:34+03:00"
+              - column:
+                  name: created_at
+                  value: "2026-06-22 17:48:34+03:00"
+
+        - insert:
+            tableName: user_profile
+            columns:
+              - column:
+                  name: guid
+                  value: "1c84e008-e249-4083-b8e7-0987b54b6ddb"
+              - column:
+                  name: name
+                  value: "Vladimir"
+              - column:
+                  name: surname
+                  value: "Kozlov"
+              - column:
+                  name: middle_name
+                  value: "Ivanovich"
+              - column:
+                  name: date_of_birth
+                  value: "1995-09-27"
+              - column:
+                  name: email
+                  value: "teacher@softspace.org"
+              - column:
+                  name: phone
+                  value: ""
+              - column:
+                  name: profile_status
+                  value: "ACTIVE"
+              - column:
+                  name: updated_at
+                  value: "2026-06-22 17:48:34+03:00"
+              - column:
+                  name: created_at
+                  value: "2026-06-22 17:48:34+03:00"
+
+        - insert:
+            tableName: user_profile
+            columns:
+              - column:
+                  name: guid
+                  value: "0f8fad5b-d9cb-469f-a165-70867728950e"
+              - column:
+                  name: name
+                  value: "Sergey"
+              - column:
+                  name: surname
+                  value: "Vladov"
+              - column:
+                  name: middle_name
+                  value: "Olegovich"
+              - column:
+                  name: date_of_birth
+                  value: "1995-07-02"
+              - column:
+                  name: email
+                  value: "intern@softspace.org"
+              - column:
+                  name: phone
+                  value: ""
+              - column:
+                  name: profile_status
+                  value: "ACTIVE"
+              - column:
+                  name: updated_at
+                  value: "2026-06-22 17:48:34+03:00"
+              - column:
+                  name: created_at
+                  value: "2026-06-22 17:48:34+03:00"

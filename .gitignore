@@ -37,6 +37,6 @@ out/
 .vscode/
 
 *.log
-src/main/resources/security
-
+#.env
+#src/main/resources/security
 src/main/generated/

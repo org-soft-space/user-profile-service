@@ -1,0 +1,43 @@
+services:
+  user-profile-service:
+    build: .
+    container_name: user-profile-service-app
+    ports:
+      - "8443:8443"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - user-profile-net
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      KEYSTORE_PASSWORD: ${KEYSTORE_PASSWORD}
+      KEY_ALIAS: ${KEY_ALIAS}
+
+
+  db:
+    image: postgres:15
+    container_name: user-profile-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+    networks:
+      - user-profile-net
+
+volumes:
+  pg_data:
+
+networks:
+  user-profile-net:
+    driver: bridge
