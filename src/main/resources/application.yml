@@ -7,6 +7,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
 
 server:
   port: ${PORT}
@@ -32,3 +35,8 @@ management:
 info:
   app:
     name: user-profile-service
+
+logging:
+  level:
+    org.softspace.userprofile: DEBUG
+    org.springframework: INFO

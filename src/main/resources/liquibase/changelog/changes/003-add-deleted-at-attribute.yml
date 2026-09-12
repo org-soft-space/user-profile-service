@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-add-deleted-at-attribute
+      author: user-profile-server
+      changes:
+        - addColumn:
+            tableName: user_profile
+            columns:
+              - column:
+                  name: deleted_at
+                  type: TIMESTAMPTZ
+                  constraints:
+                    nullable: true

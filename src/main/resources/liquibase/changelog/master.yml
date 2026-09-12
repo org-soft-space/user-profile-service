@@ -6,3 +6,15 @@ databaseChangeLog:
   - include:
       file: changes/002-insert-user-profile-data.yml
       relativeToChangelogFile: true
+
+  - include:
+      file: changes/003-add-deleted-at-attribute.yml
+      relativeToChangelogFile: true
+
+  - include:
+      file: changes/004-replace-email-unique-constraint.yml
+      relativeToChangelogFile: true
+
+  - include:
+      file: changes/005-add-not-null-to-user-profile-email.yml
+      relativeToChangelogFile: true

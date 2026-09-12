@@ -1,38 +1,38 @@
 package org.softspace.userprofile.controller.integration;
 
-import org.assertj.core.api.Assertions;
+import io.micrometer.tracing.Tracer;
 import org.junit.jupiter.api.Test;
-import org.softspace.userprofile.dto.StatusResponse;
+import org.softspace.userprofile.controller.StatusController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+
+@WebMvcTest(StatusController.class)
 @ActiveProfiles("test")
 class StatusControllerTest {
 
     @Autowired
-    private TestRestTemplate testTemplate;
+    private MockMvc mockMvc;
+
+    @MockitoBean
+    private Tracer tracer;
 
 
     @Test
-    void getStatusTest() {
-        ResponseEntity<StatusResponse> response = testTemplate.getForEntity(
-                "/api/v1/status",
-                StatusResponse.class
-        );
-
-
-        Assertions.assertThat(response).isNotNull();
-        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-        StatusResponse responseBody = response.getBody();
-
-        Assertions.assertThat(responseBody).isNotNull();
-        Assertions.assertThat(responseBody.name()).isEqualTo("user-profile-service");
-        Assertions.assertThat(responseBody.status()).isEqualTo("UP");
+    void getStatusTest() throws Exception {
+        mockMvc.perform(get("/api/v1/status"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.name").value("user-profile-service"))
+                .andExpect(jsonPath("$.status").value("UP"));
     }
 }

@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005-add-not-null-to-user-profile-email
+      author: user-profile-server
+      preConditions:
+        - onFail: HALT
+        - sqlCheck:
+            expectedResult: "0"
+            sql: >
+              SELECT COUNT(*)
+              FROM user_profile
+              WHERE email IS NULL
+      changes:
+        - addNotNullConstraint:
+            tableName: user_profile
+            columnName: email
+            columnDataType: VARCHAR(255)
+            constraintName: nn_user_profile_email
