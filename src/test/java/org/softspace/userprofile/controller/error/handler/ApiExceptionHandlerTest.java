@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micrometer.tracing.Span;
 import io.micrometer.tracing.TraceContext;
 import io.micrometer.tracing.Tracer;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -65,6 +66,7 @@ class ApiExceptionHandlerTest {
 
 
     // EmailAlreadyExistsException
+    @DisplayName("Create user profile. Email already exists. Negative.")
     @Test
     void shouldReturnConflictWhenEmailAlreadyExists() throws Exception {
 
@@ -89,6 +91,7 @@ class ApiExceptionHandlerTest {
     }
 
     // UserProfileNotFoundException
+    @DisplayName("Find user profile. User not found exception. Negative.")
     @Test
     void shouldReturnNotFoundExceptionWhenGettingUnknownProfile() throws Exception {
 
@@ -105,8 +108,9 @@ class ApiExceptionHandlerTest {
     }
 
     // MethodArgumentNotValidException
+    @DisplayName("Create user profile. Method argument not valid exception. Negative.")
     @ParameterizedTest(name = "name={0}, surname={1}, email={2}, phone={3}")
-    @MethodSource("meetCreateUserProfileVariants")
+    @MethodSource("createUserProfileVariants")
     void shouldCreateUserProfileValueException(
             String name,
             String surname,
@@ -134,7 +138,7 @@ class ApiExceptionHandlerTest {
         verify(userProfileService, never()).createUserProfile(any(CreateUserProfileRequest.class));
     }
 
-    private static Stream<Arguments> meetCreateUserProfileVariants() {
+    private static Stream<Arguments> createUserProfileVariants() {
         return Stream.of(
                 Arguments.of(null, DtoTestBuilder.SURNAME, DtoTestBuilder.EMAIL, DtoTestBuilder.PHONE),
                 Arguments.of(DtoTestBuilder.NAME, null, DtoTestBuilder.EMAIL, DtoTestBuilder.PHONE),
@@ -144,6 +148,7 @@ class ApiExceptionHandlerTest {
     }
 
     // RuntimeException
+    @DisplayName("Delete user profile. Internal exception. Negative.")
     @Test
     void shouldReturnInternalExceptionHandle() throws Exception {
         doThrow(RuntimeException.class)
@@ -159,6 +164,7 @@ class ApiExceptionHandlerTest {
     }
 
     // UnrecognizedPropertyException
+    @DisplayName("Update user profile. Unrecognized property exception. Negative.")
     @Test
     void shouldReturnUnrecognizedPropertyException() throws Exception {
         // Given
@@ -181,6 +187,7 @@ class ApiExceptionHandlerTest {
     }
 
     // InvalidFormatException
+    @DisplayName("Update user profile. Invalid format exception. Negative.")
     @Test
     void shouldReturnInvalidFormatException() throws Exception {
         // Given
@@ -191,7 +198,6 @@ class ApiExceptionHandlerTest {
                 }
                 """;
 
-        // TODO: В асёртах проверять Status error code.
         mockMvc.perform(patch(BASE_URL + "/{guid}", DtoTestBuilder.USER_GUID)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
@@ -204,6 +210,7 @@ class ApiExceptionHandlerTest {
     }
 
     // MismatchedInputException
+    @DisplayName("Update user profile. Mismatched input exception. Negative.")
     @Test
     void shouldReturnMismatchedInputException() throws Exception {
         // Given
@@ -224,6 +231,7 @@ class ApiExceptionHandlerTest {
     }
 
     // ValidationException
+    @DisplayName("Update user profile. Validation exception. Negative.")
     @Test
     void shouldReturnValidationException() throws Exception {
         // Given
@@ -248,6 +256,7 @@ class ApiExceptionHandlerTest {
     }
 
     // EmailAlreadyExistsException with TraceId
+    @DisplayName("Create user profile. Email already exists exception with TraceId. Negative.")
     @Test
     void shouldReturnConflictWhenEmailAlreadyExistsWithTraceId() throws Exception {
 

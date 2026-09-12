@@ -1,7 +1,6 @@
 package org.softspace.userprofile.controller;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.softspace.userprofile.dto.userprofile.request.CreateUserProfileRequest;
 import org.softspace.userprofile.dto.userprofile.request.UpdateUserProfileRequest;
@@ -38,7 +37,7 @@ public class UserProfileController {
 
     @GetMapping("/{guid}")
     public ResponseEntity<UserProfileResponse> getUserProfile(
-            @PathVariable @NotNull final UUID guid
+            @PathVariable final UUID guid
     ) {
         UserProfileResponse userProfileResponse = userProfileService.getUserProfile(guid);
         return ResponseEntity.ok(userProfileResponse);
@@ -52,7 +51,7 @@ public class UserProfileController {
 
     @PatchMapping("/{guid}")
     public ResponseEntity<UserProfileResponse> updateUserProfile(
-            @PathVariable @NotNull final UUID guid,
+            @PathVariable final UUID guid,
             @RequestBody @Valid UpdateUserProfileRequest updateUserProfileRequest
     ) {
         UserProfileResponse updatedUserProfileResponse = userProfileService.updateUserProfile(updateUserProfileRequest, guid);
@@ -61,7 +60,7 @@ public class UserProfileController {
 
     @DeleteMapping("/{guid}")
     public ResponseEntity<Void> deleteUserProfile(
-            @PathVariable @NotNull final UUID guid
+            @PathVariable final UUID guid
     ) {
         userProfileService.deleteUserProfile(guid);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

@@ -14,8 +14,6 @@ public record UpdateUserProfileRequest(
 
         JsonNullable<@Size(max = 100) String> surname,
 
-        // TODO: JsonNullable<String>
-        //  JacksonDataBindNullable
         JsonNullable<@Size(max = 100) String> middleName,
 
         JsonNullable<LocalDate> dateOfBirth,
