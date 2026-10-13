@@ -26,7 +26,6 @@ public class HttpLoggingFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
 
         log.info("Incoming request {} {}", method, path);
-
         filterChain.doFilter(request, response);
         log.info("Completed request {} {}", method, path);
     }
