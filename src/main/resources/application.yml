@@ -4,6 +4,7 @@ spring:
 
   liquibase:
     change-log: classpath:liquibase/changelog/master.yml
+    default-schema: ${POSTGRES_SCHEMA:user_profile}
   jpa:
     hibernate:
       ddl-auto: none

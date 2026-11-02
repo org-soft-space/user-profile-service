@@ -27,10 +27,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.Map;
 import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
@@ -288,5 +291,60 @@ class ApiExceptionHandlerTest {
                 .andExpect(jsonPath("$.traceId").value(traceId));
 
         verify(userProfileService).createUserProfile(newUserProfileRequest);
+    }
+
+
+    @DisplayName("Get user profile type mismatch exception. Negative test")
+    @Test
+    void getUserProfileTypeMismatchException() throws Exception {
+        // Given
+        String userProfileGuid = "abc";
+
+        // Execute and expect
+        MvcResult mvcResult = mockMvc.perform(get(BASE_URL + "/{guid}", userProfileGuid))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.status").value(ErrorCode.TYPE_MISMATCH_ERROR.name()))
+                .andExpect(jsonPath("$.path").value(BASE_URL + "/" + userProfileGuid))
+                .andReturn();
+        assertInstanceOf(MethodArgumentTypeMismatchException.class, mvcResult.getResolvedException());
+        verify(userProfileService, never()).getUserProfile(any());
+    }
+
+    @DisplayName("Update user profile type mismatch exception. Negative test")
+    @Test
+    void updateUserProfileTypeMismatchException() throws Exception {
+        // Given
+        String userProfileGuid = "abc";
+        UpdateUserProfileRequest request = DtoTestBuilder.getUpdateUserProfileRequest();
+
+        // Execute and expect
+        MvcResult mvcResult = mockMvc.perform(patch(BASE_URL + "/{guid}", userProfileGuid)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.status").value(ErrorCode.TYPE_MISMATCH_ERROR.name()))
+                .andExpect(jsonPath("$.path").value(BASE_URL + "/" + userProfileGuid))
+                .andReturn();
+        assertInstanceOf(MethodArgumentTypeMismatchException.class, mvcResult.getResolvedException());
+        verify(userProfileService, never()).updateUserProfile(any(), any());
+    }
+
+    @DisplayName("Delete user profile type mismatch exception. Negative test")
+    @Test
+    void deleteUserProfileTypeMismatchException() throws Exception {
+        // Given
+        String userProfileGuid = "abc";
+
+        // Execute and expect
+        MvcResult mvcResult = mockMvc.perform(delete(BASE_URL + "/{guid}", userProfileGuid))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.status").value(ErrorCode.TYPE_MISMATCH_ERROR.name()))
+                .andExpect(jsonPath("$.path").value(BASE_URL + "/" + userProfileGuid))
+                .andReturn();
+        assertInstanceOf(MethodArgumentTypeMismatchException.class, mvcResult.getResolvedException());
+        verify(userProfileService, never()).updateUserProfile(any(), any());
     }
 }

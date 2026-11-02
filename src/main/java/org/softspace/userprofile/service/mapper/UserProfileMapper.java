@@ -7,13 +7,11 @@ import org.softspace.userprofile.dto.userprofile.response.AllUserProfilesRespons
 import org.softspace.userprofile.dto.userprofile.response.UserProfileResponse;
 import org.softspace.userprofile.entity.UserProfileEntity;
 import org.softspace.userprofile.enums.ProfileStatus;
-import org.springframework.context.annotation.Primary;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
-@Primary
 @Mapper(componentModel = "spring")
 public interface UserProfileMapper {
 

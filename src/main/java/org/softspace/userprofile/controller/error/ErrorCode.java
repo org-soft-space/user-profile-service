@@ -7,5 +7,6 @@ public enum ErrorCode {
     VALIDATION_ERROR,
     FIELD_NOT_ALLOWED,
     FIELD_INVALID,
+    TYPE_MISMATCH_ERROR,
     INTERNAL_ERROR
 }

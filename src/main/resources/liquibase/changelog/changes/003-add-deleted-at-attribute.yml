@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 003-add-deleted-at-attribute
-      author: user-profile-server
+      author: user-profile-service
       changes:
         - addColumn:
             tableName: user_profile

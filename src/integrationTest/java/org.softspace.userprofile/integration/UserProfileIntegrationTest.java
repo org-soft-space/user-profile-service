@@ -59,7 +59,10 @@ public class UserProfileIntegrationTest {
 
 
     @Container
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15");
+    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15")
+            .withInitScript("sql/init/create-schema.sql")
+            .withUrlParam("currentSchema", "user_profile")
+            .withUsername("postgres");
 
     @DynamicPropertySource
     static void configurePostgres(DynamicPropertyRegistry registry) {
