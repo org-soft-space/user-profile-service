@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 005-add-not-null-to-user-profile-email
-      author: user-profile-server
+      author: user-profile-service
       preConditions:
         - onFail: HALT
         - sqlCheck:

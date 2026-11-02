@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 004-replace-email-unique-constraint
-      author: user-profile-server
+      author: user-profile-service
       changes:
         - dropUniqueConstraint:
             tableName: user_profile

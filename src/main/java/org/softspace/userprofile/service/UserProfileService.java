@@ -56,8 +56,7 @@ public class UserProfileService {
                 profileStatusDefault,
                 now
         );
-        // TODO: тест для DataIntegrityViolationException.  Метод save выкинул исключение.  ==== DONE ====
-        //  и проверить что пришел EmailAlreadyExistsException.         Проверка реализована в unit тестах - dataIntegrityViolationExceptionTest
+
         // Create user profile
         try {
             UserProfileEntity createdUserProfile = userProfileRepository.save(userProfileEntity);
@@ -123,9 +122,6 @@ public class UserProfileService {
         Instant now = Instant.now();
         userProfileEntity.setDeletedAt(now);
         userProfileEntity.setUpdatedAt(now);
-        // TODO: Изучить lifecycle entity в Hibernate при наличие транзакций.
-        //  и почему здесь можно убрать метод save?
-//        userProfileRepository.save(userProfileEntity);
     }
 
 
